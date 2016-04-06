@@ -3,8 +3,8 @@ import csv
 import os
 import pandas as pd
 
-# Predict via the user-specific median.
-# If the user has no data, use the global median.
+# Predict using matrix factorization.
+# If the user has no data, use either the user-specific median or global median.
 
 train_file = 'train.csv'
 test_file  = 'test_small.csv'
@@ -16,7 +16,7 @@ soln_file  = 'matrix_factorization_results.csv'
 ####################################################################
 
 # Load the training data.
-num_rows = 100 # only loads subset of data for speed
+# num_rows = 100 # only loads subset of data for speed
 
 print "Loading training data..."
 train_data = {}
@@ -33,24 +33,24 @@ with open(train_file, 'r') as train_fh:
         
         train_data[user][artist] = int(plays)
 
-        num_rows -= 1
-        if num_rows == 0:
-            break
+        # num_rows -= 1
+        # if num_rows == 0:
+        #     break
 
 ###################################################################
 ####Starting Small - 10 pairs
-first10pairs = {k: train_data[k] for k in train_data.keys()[:10]}
-# print "first10pairs", first10pairs
-testpd=pd.DataFrame(first10pairs)
-# print "testpd", testpd
+# first10pairs = {k: train_data[k] for k in train_data.keys()[:10]}
+# testpd=pd.DataFrame(first10pairs)
+
+# or use all the data
+testpd=pd.DataFrame({k: train_data[k] for k in train_data.keys()})
+
 testpd=testpd.fillna(0)
 column_names = list(testpd.columns.values) # get column names (users)
 row_names = list(testpd.index) # get row names (artists)
 # print "column_names", column_names
 # print "row_names", row_names
 R=np.array(testpd)
-# print "R", R
-
 
 ###############################################################################
 ##Matrix Factorization
@@ -69,7 +69,6 @@ R=np.array(testpd)
 def matrix_factorization(R, P, Q, K, steps=1000, alpha=0.0002, beta=0.02):
     Q = Q.T
     for step in xrange(steps):
-        # print "Step:", step
         for i in xrange(len(R)):
             for j in xrange(len(R[i])):
                 if R[i][j] > 0:
@@ -111,22 +110,7 @@ nR=np.dot(nP,nQ.T)
 # print "nR", nR
 # print "nR.shape", nR.shape
 
-###############################################################################
-#OLD CODE - COMMENTED OUT
-
 # Compute the global median and per-user median.
-#plays_array  = []
-#user_medians = {}
-#for user, user_data in train_data.iteritems():
-#    user_plays = []
-#    for artist, plays in user_data.iteritems():
-#        plays_array.append(plays)
-#        user_plays.append(plays)
-#
-#    user_medians[user] = np.median(np.array(user_plays))
-#global_median = np.median(np.array(plays_array))
-
-# Compute the per-user median.
 plays_array  = []
 user_medians = {}
 for user, user_data in train_data.iteritems():
@@ -142,10 +126,10 @@ global_median = np.median(np.array(plays_array))
 #########
 ###Re-integrate the new matrix with the old dataframe columns and headings. Column labels are users, row labels are artists.
 nR_pd=pd.DataFrame(nR, columns=column_names, index=row_names)
-print "nR_pd", nR_pd
+# print "nR_pd", nR_pd
 print "nR_pd.shape", nR_pd.shape
-print "column_names", column_names
-print "row_names", row_names
+# print "column_names", column_names
+# print "row_names", row_names
 
 
 ##############################################################################
@@ -170,20 +154,11 @@ with open(test_file, 'r') as test_fh:
             artist = row[2]
 
             if (str(user) in column_names) & (str(artist) in row_names):
-                # print "We got it!"
-                # plays = nR_pd.loc[str(artist), str(user)]
-                # print plays
                 soln_csv.writerow([id, nR_pd.loc[str(artist), str(user)]])
             else:
                 print "User or artist with id", id, "not in training data."
-                # soln_csv.writerow([id, user_medians[user]])
-                soln_csv.writerow([id, global_median])
-            # plays = nR_pd.loc[str(artist), str(user)]
-            # print plays
+                # choose to write either the global median or user median
+                soln_csv.writerow([id, user_medians[user]])
+                # soln_csv.writerow([id, global_median])
 
-            # if user in user_medians:
-            #     soln_csv.writerow([id, user_medians[user]])
-            # else:
-            #     print "User", id, "not in training data."
-            #     soln_csv.writerow([id, global_median])
                 
