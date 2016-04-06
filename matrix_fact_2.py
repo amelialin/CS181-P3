@@ -7,7 +7,7 @@ import pandas as pd
 # If the user has no data, use the global median.
 
 train_file = 'train.csv'
-test_file  = 'test.csv'
+test_file  = 'test_small.csv'
 soln_file  = 'user_median.csv'
 
 ###################################################################
@@ -132,6 +132,8 @@ nR=np.dot(nP,nQ.T)
 nR_pd=pd.DataFrame(nR, columns=column_names, index=row_names)
 print "nR_pd", nR_pd
 print "nR_pd.shape", nR_pd.shape
+print "column_names", column_names
+print "row_names", row_names
 
 
 ##############################################################################
@@ -155,9 +157,7 @@ with open(test_file, 'r') as test_fh:
             user   = row[1]
             artist = row[2]
 
-            # print "user", user
-            # print "artist", artist
-            if (str(user) in column_names) & (str(artist) in column_names):
+            if (str(user) in column_names) & (str(artist) in row_names):
                 print "We got it!"
             else:
                 pass
