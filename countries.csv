@@ -1,0 +1,240 @@
+country,id
+Afghanistan,0
+Albania,1
+Algeria,2
+American Samoa,3
+Andorra,4
+Angola,5
+Anguilla,6
+Antarctica,7
+Antigua and Barbuda,8
+Argentina,9
+Armenia,10
+Aruba,11
+Australia,12
+Austria,13
+Azerbaijan,14
+Bahamas,15
+Bahrain,16
+Bangladesh,17
+Barbados,18
+Belarus,19
+Belgium,20
+Belize,21
+Benin,22
+Bermuda,23
+Bhutan,24
+Bolivia,25
+Bosnia and Herzegovina,26
+Botswana,27
+Bouvet Island,28
+Brazil,29
+British Indian Ocean Territory,30
+Brunei Darussalam,31
+Bulgaria,32
+Burkina Faso,33
+Burundi,34
+Cambodia,35
+Cameroon,36
+Canada,37
+Cape Verde,38
+Cayman Islands,39
+Central African Republic,40
+Chad,41
+Chile,42
+China,43
+Christmas Island,44
+Cocos (Keeling) Islands,45
+Colombia,46
+Comoros,47
+Congo,48
+"Congo, the Democratic Republic of the",49
+Cook Islands,50
+Costa Rica,51
+Cote D'Ivoire,52
+Croatia,53
+Cuba,54
+Cyprus,55
+Czech Republic,56
+Denmark,57
+Djibouti,58
+Dominica,59
+Dominican Republic,60
+Ecuador,61
+Egypt,62
+El Salvador,63
+Equatorial Guinea,64
+Eritrea,65
+Estonia,66
+Ethiopia,67
+Falkland Islands (Malvinas),68
+Faroe Islands,69
+Fiji,70
+Finland,71
+France,72
+French Guiana,73
+French Polynesia,74
+French Southern Territories,75
+Gabon,76
+Gambia,77
+Georgia,78
+Germany,79
+Ghana,80
+Gibraltar,81
+Greece,82
+Greenland,83
+Grenada,84
+Guadeloupe,85
+Guam,86
+Guatemala,87
+Guinea-Bissau,88
+Guyana,89
+Haiti,90
+Heard Island and Mcdonald Islands,91
+Holy See (Vatican City State),92
+Honduras,93
+Hong Kong,94
+Hungary,95
+Iceland,96
+India,97
+Indonesia,98
+"Iran, Islamic Republic of",99
+Iraq,100
+Ireland,101
+Israel,102
+Italy,103
+Jamaica,104
+Japan,105
+Jordan,106
+Kazakhstan,107
+Kenya,108
+Kiribati,109
+"Korea, Democratic People's Republic of",110
+"Korea, Republic of",111
+Kuwait,112
+Kyrgyzstan,113
+Lao People's Democratic Republic,114
+Latvia,115
+Lebanon,116
+Lesotho,117
+Liberia,118
+Libyan Arab Jamahiriya,119
+Liechtenstein,120
+Lithuania,121
+Luxembourg,122
+Macao,123
+Macedonia,124
+Madagascar,125
+Malawi,126
+Malaysia,127
+Maldives,128
+Mali,129
+Malta,130
+Marshall Islands,131
+Martinique,132
+Mauritania,133
+Mauritius,134
+Mayotte,135
+Mexico,136
+"Micronesia, Federated States of",137
+Moldova,138
+Monaco,139
+Mongolia,140
+Montenegro,141
+Montserrat,142
+Morocco,143
+Mozambique,144
+Myanmar,145
+Namibia,146
+Nauru,147
+Nepal,148
+Netherlands,149
+Netherlands Antilles,150
+New Caledonia,151
+New Zealand,152
+Nicaragua,153
+Niger,154
+Nigeria,155
+Niue,156
+Norfolk Island,157
+Northern Mariana Islands,158
+Norway,159
+Oman,160
+Pakistan,161
+Palau,162
+"Palestinian Territory, Occupied",163
+Panama,164
+Papua New Guinea,165
+Paraguay,166
+Peru,167
+Philippines,168
+Pitcairn,169
+Poland,170
+Portugal,171
+Puerto Rico,172
+Qatar,173
+Reunion,174
+Romania,175
+Russian Federation,176
+Rwanda,177
+Saint Helena,178
+Saint Kitts and Nevis,179
+Saint Lucia,180
+Saint Pierre and Miquelon,181
+Saint Vincent and the Grenadines,182
+Samoa,183
+San Marino,184
+Sao Tome and Principe,185
+Saudi Arabia,186
+Senegal,187
+Serbia,188
+Seychelles,189
+Sierra Leone,190
+Singapore,191
+Slovakia,192
+Slovenia,193
+Solomon Islands,194
+Somalia,195
+South Africa,196
+South Georgia and the South Sandwich Islands,197
+Spain,198
+Sri Lanka,199
+Sudan,200
+Suriname,201
+Svalbard and Jan Mayen,202
+Swaziland,203
+Sweden,204
+Switzerland,205
+Syrian Arab Republic,206
+Taiwan,207
+Tajikistan,208
+"Tanzania, United Republic of",209
+Thailand,210
+Timor-Leste,211
+Togo,212
+Tokelau,213
+Tonga,214
+Trinidad and Tobago,215
+Tunisia,216
+Turkey,217
+Turkmenistan,218
+Turks and Caicos Islands,219
+Tuvalu,220
+Uganda,221
+Ukraine,222
+United Arab Emirates,223
+United Kingdom,224
+United States,225
+United States Minor Outlying Islands,226
+Uruguay,227
+Uzbekistan,228
+Vanuatu,229
+Venezuela,230
+Viet Nam,231
+"Virgin Islands, British",232
+"Virgin Islands, U.s.",233
+Wallis and Futuna,234
+Western Sahara,235
+Yemen,236
+Zambia,237
+Zimbabwe,238

@@ -4,31 +4,28 @@ Created on Wed Apr 06 10:17:06 2016
 ​
 @author: WouterD
 """
-​
+
 import numpy as np
 import csv
 import os
 import pandas as pd
+
 # Predict using matrix factorization.
 # If the user has no data, use either the user-specific median or global median.
-​
+
 Runenv="GLOBAL"
-​
+# Runenv="LOCAL"
+
 if Runenv=="LOCAL":
     train_file = 'train.csv'
     test_file  = 'test.csv'
     soln_file  = 'matrix_factorization_results.csv'
-    os.chdir("C:\Users\WouterD\Dropbox\Recent Work Wouter\Practical3")
+    # os.chdir("C:\Users\WouterD\Dropbox\Recent Work Wouter\Practical3")
 else: 
     train_file = './data/train.csv'
     test_file  = './data/test.csv'
     soln_file  = 'matrix_factorization_results.csv'
-​
-###local run
-​
-###################################################################
-#set local drive
-####################################################################
+
 # Load the training data.
 # num_rows = 100 # only loads subset of data for speed
 print "Loading training data..."
@@ -46,16 +43,17 @@ with open(train_file, 'r') as train_fh:
             train_data[user] = {}
         
         train_data[user][artist] = int(plays)
+        
         # num_rows -= 1
         # if num_rows == 0:
         #     break
+
 ###################################################################
 ####Starting Small - 10 pairs
-# first10pairs = {k: train_data[k] for k in train_data.keys()[:10]}
-# testpd=pd.DataFrame(first10pairs)
+
 # or use all the data
-​
-#testpd=pd.DataFrame({k: train_data[k] for k in train_data.keys()[:10]})
+
+# testpd=pd.DataFrame({k: train_data[k] for k in train_data.keys()[:1000]})
 testpd=pd.DataFrame({k: train_data[k] for k in train_data.keys()})
 testpd=testpd.fillna(0)
 column_names = list(testpd.columns.values) # get column names (users)
@@ -100,9 +98,11 @@ def matrix_factorization(R, P, Q, K, steps=1000, alpha=0.0002, beta=0.02):
         if e < 0.001:
             break
     return P, Q.T
+
 ###############################################################################
 #approach 1 
 ############################################################################
+
 #N = len(R)
 #M = len(R[0])
 #K = 2
@@ -110,57 +110,57 @@ def matrix_factorization(R, P, Q, K, steps=1000, alpha=0.0002, beta=0.02):
 #Q = np.random.rand(M,K)
 #print "Doing matrix factorization..."
 #nP, nQ = matrix_factorization(R, P, Q, K)
-​
+
 # print "nP", nP
 # print "nP.shape", nP.shape
 # print "nQ", nQ
 # print "nQ.shape", nQ.shape
-​
+
 #nR=np.dot(nP,nQ.T)
-​
+
 # print "nR", nR
 # print "nR.shape", nR.shape
-​
+
 ###############################################################################
 #approach 2 
 ############################################################################
-​
+
 ###from http://bugra.github.io/work/notes/2014-04-19/alternating-least-squares-method-for-collaborative-filtering/
+
 Q=R
 W = R>0.5
 W[W == True] = 1
 W[W == False] = 0
 # To be consistent with our Q matrix
 W = W.astype(np.float64, copy=False)
-​
-​
+
 lambda_ = 0.1
 n_factors = 40
 m, n = Q.shape
-n_iterations = 100
-​
-​
+n_iterations = 2
+
 X = 5 * np.random.rand(m, n_factors) 
 Y = 5 * np.random.rand(n_factors, n)
-​
+
 def get_error(Q, X, Y, W):
     return np.sum((W * (Q - np.dot(X, Y)))**2)
-​
+
 errors = []
 for ii in range(n_iterations):
     X = np.linalg.solve(np.dot(Y, Y.T) + lambda_ * np.eye(n_factors), 
                         np.dot(Y, Q.T)).T
     Y = np.linalg.solve(np.dot(X.T, X) + lambda_ * np.eye(n_factors),
                         np.dot(X.T, Q))
+    errors.append(get_error(Q, X, Y, W))
     if ii % 10 == 0:
         print('{}th iteration is completed'.format(ii))
-    errors.append(get_error(Q, X, Y, W))
+        print "Error:", errors[-1]
 Q_hat = np.dot(X, Y)
 print('Error of rated movies: {}'.format(get_error(Q, X, Y, W)))
-​
+
 nR=Q_hat
-​
-​
+
+
 # Compute the global median and per-user median.
 plays_array  = []
 user_medians = {}
@@ -171,18 +171,14 @@ for user, user_data in train_data.iteritems():
        user_plays.append(plays)
    user_medians[user] = np.median(np.array(user_plays))
 global_median = np.median(np.array(plays_array))
-​
+
 #########
 ###Re-integrate the new matrix with the old dataframe columns and headings. Column labels are users, row labels are artists.
 nR_pd=pd.DataFrame(nR, columns=column_names, index=row_names)
 #dictout=nR_pd.to_dict()
 #nR_pd.set_index('columns',"index").to_dict()
-​
-​
-# print "nR_pd", nR_pd
 print "nR_pd.shape", nR_pd.shape
-# print "column_names", column_names
-# print "row_names", row_names
+
 # Write out test solutions.
 with open(test_file, 'r') as test_fh:
     test_csv = csv.reader(test_fh, delimiter=',', quotechar='"')
@@ -202,5 +198,5 @@ with open(test_file, 'r') as test_fh:
             else:
                 print "User or artist with id", id, "not in training data."
                 # choose to write either the global median or user median
-                soln_csv.writerow([id, user_medians[user]])
-                # soln_csv.writerow([id, global_median])
+                # soln_csv.writerow([id, user_medians[user]])
+                soln_csv.writerow([id, global_median])

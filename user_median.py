@@ -35,7 +35,7 @@ for user, user_data in train_data.iteritems():
         user_plays.append(plays)
 
     user_medians[user] = np.median(np.array(user_plays))
-    print "user_medians[user]", user_medians[user]
+    # print "user_medians[user]", user_medians[user]
 global_median = np.median(np.array(plays_array))
 
 # Write out test solutions.
